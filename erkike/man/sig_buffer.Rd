@@ -4,7 +4,7 @@
 \alias{sig_buffer}
 \title{Buffer GIS tools}
 \usage{
-sig_buffer(capa_entrada, distancia, dissolve = TRUE)
+sig_buffer(capa_entrada, distancia, dissolve = TRUE, campo = NULL)
 }
 \arguments{
 \item{capa_entrada}{un objeto de tipo vectorial de la clase sf}
@@ -22,8 +22,16 @@ Un objeto vectorial de la case sfc_POLYGON
 \code{sig_buffer} devuelve la zona de influencia entorno a las geometrias de un shapefile
 }
 \examples{
-\dontrun
-sig_buffer(capa_entrada,1000)
-sig_buffer(capa_entrada,1000, dissolve = TRUE)
-sig_buffer(capa_entrada,1000, dissolve = TRUE, 'Especie')
+\dontrun{
+ciudades_data <- data.frame(
+nombre =c("Madrid", "Barcelona", "Sevilla"),
+poblacion = c(3, 2, 5),
+lon=c(3, 2, 5),
+lat=c(5, 3, 2)
+)
+ciudades_sf <- st_as_sf(ciudades_data, coords = c("lon","lat"), crs =4326)
+
+sig_buffer(ciudades_sf,distancia=200)
+sig_buffer(ciudades_sf, distancia=200, dissolve = TRUE)
+sig_buffer(ciudades_sf, distancia=200, dissolve = FALSE)}
 }
